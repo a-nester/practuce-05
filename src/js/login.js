@@ -20,13 +20,22 @@ const form = document.querySelector('.login-form');
 const button = document.querySelector('.login-btn');
 const LOCAL_STORAGE_KEY = 'login-form';
 
+const userEmail = form.elements.email;
+const userPassword = form.elements.password;
+
 form.addEventListener('submit', onSubmit);
 
 function onSubmit(event) {
   event.preventDefault();
+  if (button.textContent === 'Logout') {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    form.reset();
+    userEmail.removeAttribute("readonly");
+    userPassword.removeAttribute("readonly");
+    button.textContent = "Login";
+    return;
+  }
 
-  const userEmail = event.target.elements.email;
-  const userPassword = event.target.elements.password;
   const userEmailValue = userEmail.value.trim();
   const userPasswordValue = userPassword.value.trim();
 
@@ -52,7 +61,21 @@ function onSubmit(event) {
     LOCAL_STORAGE_KEY,
     JSON.stringify({ email: userEmailValue, password: userPasswordValue })
   );
+    updateForm();
+}
+
+const saveData = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+if (saveData) {
+  const parsedData = JSON.parse(saveData);
+  userEmail.value = parsedData.email ?? "";
+  userPassword.value = parsedData.password ?? "";
+  updateForm();
+}
+
+
+function updateForm () {
   button.textContent = 'Logout';
   userEmail.setAttribute('readonly', true);
   userPassword.setAttribute('readonly', true);
-}
+};
