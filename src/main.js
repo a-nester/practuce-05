@@ -1,1 +1,2 @@
-import "./js/promise"
+// import "./js/promise"
+import './js/login';
