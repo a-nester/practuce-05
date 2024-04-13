@@ -8,7 +8,7 @@
 // git pull origin main
 
 // робимо коміт своєї робочої гілки
-// 
+// git add . 
 // git commit -m 'what in commit' (робимо комміт)
 // git push origin your_branch (відправляємо свою локальну гілку на віддалений репо, pull request)
 // щоб стягнути актуальні зміни з меін, коли працюємо у своїй гілці
